@@ -1,9 +1,13 @@
-export type BlogType = {
-  id: string;
-  name: string; // 15
-  description: string; // 500
-  websiteUrl: string; // 100
-};
+
+
+export interface BlogType {
+  id: string; // сюда явно добавляем
+  name: string;
+  description: string;
+  websiteUrl: string;
+  createdAt: string;
+  isMembership: boolean;
+}
 
 export type PostBlogType = {
   name: string;

@@ -12,9 +12,14 @@ postsRouter.get("/:id", async (req: Request, res: Response) => {
   const post = await PostModel.findById(req.params.id);
 
   if (!post)
-    return res
-      .status(HttpResponses.NOT_FOUND)
-      .send(`Post with id ${req.params.id} doesn't exist!`);
+    return res.status(HttpResponses.NOT_FOUND).send({
+      errorsMessages: [
+        {
+          message: "Post not found",
+          field: "id",
+        },
+      ],
+    });
 
   return res.status(HttpResponses.OK).send(post);
 });
@@ -61,9 +66,14 @@ postsRouter.put(
 
     const blog = await BlogModel.findById(blogId);
     if (!blog)
-      return res
-        .status(HttpResponses.NOT_FOUND)
-        .send(`Blog with id ${blogId} doesn't exist!`);
+      return res.status(HttpResponses.NOT_FOUND).send({
+        errorsMessages: [
+          {
+            message: "Blog not found",
+            field: "id",
+          },
+        ],
+      });
 
     const updated = await PostModel.findByIdAndUpdate(
       req.params.id,
@@ -78,9 +88,14 @@ postsRouter.put(
     );
 
     if (!updated)
-      return res
-        .status(HttpResponses.NOT_FOUND)
-        .send(`Post with id ${req.params.id} doesn't exist!`);
+      return res.status(HttpResponses.NOT_FOUND).send({
+        errorsMessages: [
+          {
+            message: "Post not found",
+            field: "id",
+          },
+        ],
+      });
 
     return res.sendStatus(HttpResponses.NO_CONTENT);
   }
@@ -90,9 +105,14 @@ postsRouter.delete("/:id", basicAuth, async (req, res) => {
   const deleted = await PostModel.findByIdAndDelete(req.params.id);
 
   if (!deleted)
-    return res
-      .status(HttpResponses.NOT_FOUND)
-      .send(`Post with id ${req.params.id} doesn't exist!`);
+    return res.status(HttpResponses.NOT_FOUND).send({
+      errorsMessages: [
+        {
+          message: "Post not found",
+          field: "id",
+        },
+      ],
+    });
 
   return res.sendStatus(HttpResponses.NO_CONTENT);
 });

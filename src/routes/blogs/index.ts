@@ -11,9 +11,14 @@ blogsRouter.get("/:id", async (req, res) => {
   const blog = await BlogModel.findById(req.params.id);
 
   if (!blog)
-    return res
-      .status(HttpResponses.NOT_FOUND)
-      .send(`Blog with id ${req.params.id} doesn't exist!`);
+    return res.status(HttpResponses.NOT_FOUND).send({
+      errorsMessages: [
+        {
+          message: "Blog not found",
+          field: "id",
+        },
+      ],
+    });
 
   return res.status(HttpResponses.OK).send(blog);
 });
@@ -60,9 +65,14 @@ blogsRouter.put(
     );
 
     if (!updated)
-      return res
-        .status(HttpResponses.NOT_FOUND)
-        .send(`Blog with id ${req.params.id} doesn't exist!`);
+      return res.status(HttpResponses.NOT_FOUND).send({
+        errorsMessages: [
+          {
+            message: "Blog not found",
+            field: "id",
+          },
+        ],
+      });
 
     return res.sendStatus(HttpResponses.NO_CONTENT);
   }
@@ -72,9 +82,14 @@ blogsRouter.delete("/:id", basicAuth, async (req: Request, res: Response) => {
   const deleted = await BlogModel.findByIdAndDelete(req.params.id);
 
   if (!deleted)
-    return res
-      .status(HttpResponses.NOT_FOUND)
-      .send(`Blog with id ${req.params.id} doesn't exist!`);
+    return res.status(HttpResponses.NOT_FOUND).send({
+      errorsMessages: [
+        {
+          message: "Blog not found",
+          field: "id",
+        },
+      ],
+    });
 
   return res.sendStatus(HttpResponses.NO_CONTENT);
 });
