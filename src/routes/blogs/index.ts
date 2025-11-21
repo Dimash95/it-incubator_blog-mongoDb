@@ -37,7 +37,7 @@ blogsRouter.post(
       websiteUrl,
     });
 
-    res.status(HttpResponses.CREATED).send(blog);
+    return res.status(HttpResponses.CREATED).send(blog);
   }
 );
 
@@ -47,12 +47,14 @@ blogsRouter.put(
   createBlogValidation,
   inputValidation,
   async (req: Request, res: Response) => {
+    const { name, description, websiteUrl } = req.body;
+
     const updated = await BlogModel.findByIdAndUpdate(
       req.params.id,
       {
-        name: req.body.name,
-        description: req.body.description,
-        websiteUrl: req.body.websiteUrl,
+        name,
+        description,
+        websiteUrl,
       },
       { new: true }
     );

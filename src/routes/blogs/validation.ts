@@ -9,7 +9,7 @@ export const createBlogValidation = [
     .withMessage("websiteUrl is required")
     .isLength({ max: 100 })
     .withMessage("websiteUrl is too long")
-    .matches(/^https:\/\/([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/)
+    .matches(/^https:\/\/([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+$/)
     .withMessage("websiteUrl is not valid"),
 
   body("name")

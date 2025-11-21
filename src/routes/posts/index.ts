@@ -33,6 +33,7 @@ postsRouter.post(
     const { title, shortDescription, content, blogId } = req.body;
 
     const blog = await BlogModel.findById(blogId);
+
     if (!blog)
       return res.status(HttpResponses.NOT_FOUND).send({
         errorsMessages: [{ field: "blogId", message: "Invalid blogId" }],
